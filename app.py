@@ -11,8 +11,6 @@ USERS = {
     "admin": {"password": "1234", "balance": 500000}
 }
 
-#@app.route('/', methods=['GET', 'POST'])
-# = 루트 URL에서 GET과 POST 요청을 처리하는 기능을 만들겠다
 @app.route('/', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
@@ -30,8 +28,32 @@ def login():
 
 @app.route('/dashboard')
 def dashboard():
-    if(username not in session) : 
+    if 'username' not in session:
         return redirect(url_for('login'))
+
     username = session['username']
     balance = USERS[username]["balance"]
+
     return render_template("dashboard.html", username=username, balance=balance)
+
+@app.route('/transfer', methods=['GET', 'POST'])
+def transfer():
+    if 'username' not in session:
+        return redirect(url_for('login'))
+
+    username = session['username']
+
+    if request.method == 'POST':
+        amount = int(request.form['amount'])
+        USERS[username]["balance"] -= amount
+        return redirect(url_for("dashboard"))
+
+    return render_template("transfer.html", username=username)
+
+@app.route('/logout')
+def logout():
+    session.clear()
+    return redirect(url_for("login"))
+
+if __name__ == "__main__":
+    app.run(debug=True)
