@@ -45,8 +45,9 @@ def transfer():
 
     if request.method == 'POST':
         amount = int(request.form['amount'])
+        account_number = int(request.form[account_number]) #계좌 번호 내역 추가
         USERS[username]["balance"] -= amount
-        return redirect(url_for("dashboard"))
+        return redirect(url_for("accountsend"))
 
     return render_template("transfer.html", username=username)
 

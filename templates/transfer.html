@@ -6,10 +6,12 @@
 <body>
     <h2>송금</h2>
     <form method="POST">
-        금액: <input name="amount" type="number"><br><br>
+        받는 계좌번호: <input name="account_number" type="number" required><br><br>
+        금액: <input name="amount" type="number" required><br><br>
         <button type="submit">송금</button>
     </form>
     <br>
     <a href="/dashboard">뒤로가기</a>
 </body>
 </html>
+
