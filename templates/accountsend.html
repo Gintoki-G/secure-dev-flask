@@ -1,12 +1,60 @@
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 <head>
-    <title>accountsend</title>
+    <meta charset="UTF-8">
+    <title>송금 완료</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f4f7;
+            text-align: center;
+            padding-top: 80px;
+        }
+        .box {
+            background: #fff;
+            width: 400px;
+            margin: 0 auto;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        h2 {
+            color: #333;
+        }
+        .info {
+            font-size: 18px;
+            margin: 15px 0;
+            color: #555;
+        }
+        .btn {
+            display: inline-block;
+            margin-top: 25px;
+            padding: 12px 20px;
+            background: #4285f4;
+            color: white;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 16px;
+        }
+        .btn:hover {
+            background: #2f6fe4;
+        }
+    </style>
 </head>
 <body>
-    <h2>송금을 완료 하였습니다.</h2>
-    <p>계좌 잔액: {{ balance }} 원</p>
-    <a href="/transfer">송금하기</a><br><br>
-    <a href="/logout">로그아웃</a>
+
+    <div class="box">
+        <h2>송금이 완료되었습니다 ✔</h2>
+
+        <div class="info">
+            <strong>송금 금액:</strong> {{ amount }} 원
+        </div>
+        <div class="info">
+            <strong>받는 계좌:</strong> {{ account_number }}
+        </div>
+
+        <a href="{{ url_for('dashboard') }}" class="btn">대시보드로 돌아가기</a>
+    </div>
+
 </body>
 </html>

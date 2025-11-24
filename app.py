@@ -45,11 +45,21 @@ def transfer():
 
     if request.method == 'POST':
         amount = int(request.form['amount'])
-        account_number = int(request.form[account_number]) #계좌 번호 내역 추가
+        account_number =request.form[account_number] #계좌 번호 내역 추가
         USERS[username]["balance"] -= amount
         return redirect(url_for("accountsend"))
 
     return render_template("transfer.html", username=username)
+
+@app.route('/accountsend')
+def accountsend():
+    if 'username' not in session:
+        return redirect(url_for('login'))
+
+    account_number = session.get('last_account')
+    amount = session.get('last_amount')
+
+    return render_template("accountsend.html", account_number=account_number, amount=amount)
 
 @app.route('/logout')
 def logout():
