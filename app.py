@@ -12,6 +12,11 @@ USERS = {
 }
 # 라우팅 : 웹에서 url과 처리 함수를 연결
 # 서버는 어떤 코드를 실행해야하는 지 알아야 한다.
+
+#flask의 기본구조
+#1. @app.route()    → URL 등록
+#2. 함수            → 실행할 코드
+#3. return          → HTML or redirect
 @app.route('/', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
@@ -23,6 +28,8 @@ def login():
         #이제 서버가 사용자 정보를 저장한 데이터베이스(혹은 딕셔너리)에서
         #실제 계정 정보를 가져오는 것
         user = USERS.get(username)
+        #세션은 브라우저와 서버가 
+        #로그인 상태를 기억하도록 하는 방법입니다.
         if user and user["password"] == password:
             session['username'] = username
             return redirect(url_for("dashboard"))
@@ -77,3 +84,4 @@ def accountsend():
 def logout():
     session.clear()
     return redirect(url_for("login"))
+
